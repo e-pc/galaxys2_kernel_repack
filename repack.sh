@@ -7,6 +7,7 @@ COMPILER_LIB=$(${COMPILER}gcc -print-libgcc-file-name | sed -r 's/\/libgcc.a$//'
 ##############################################################################
 #set -x
 trap "cleanup" 2 3 4
+export LC_ALL=C
 
 srcdir=`dirname $0`
 # PLATFORM DETECTION
@@ -24,9 +25,6 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
         printerr "greadlink is required, install via 'sudo port install coreutils'" && exit 1
     fi
     srcdir=`greadlink -f $srcdir`
-
-    # cut needs locale set to avoid "illegal byte sequence" error
-    export LC_ALL=C
 
     # os x stat uses -f %z to get size
     STATSIZE='stat -f %z'

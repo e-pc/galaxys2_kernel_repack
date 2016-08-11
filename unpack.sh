@@ -6,6 +6,7 @@
 # naturally, meaning that some non-compressed files get uncompressed.
 
 # PLATFORM DETECTION
+export LC_ALL=C
 
 if [[ "$OSTYPE" =~ ^darwin ]]; then
     PLATFORM="darwin"
@@ -19,9 +20,6 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
     if [ "$grep_ver_major" -eq "$grep_ver_major_min" -a "$grep_ver_minor" -lt "$grep_ver_minor_min" -o "$grep_ver_major" -lt "$grep_ver_major_min" ]; then
         echo "grep version < 2.15, upgrade via 'sudo port install grep'" && exit 1
     fi
-
-    # cut needs locale set to avoid "illegal byte sequence" error
-    export LC_ALL=C
 
     # os x stat uses -f %z to get size
     STATSIZE='stat -f %z'
