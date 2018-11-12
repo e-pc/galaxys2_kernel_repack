@@ -19,21 +19,21 @@ SCRIPT_DIR=$(dirname ${BASH_SOURCE[0]})
 # gen_init_cpio binary for each platform is in $PLATFORM directory
 if [[ "$OSTYPE" =~ ^darwin ]]; then
     PLATFORM="darwin"
-
     # Ensure we have gfind.
     if [ -z `which gfind` ]; then
         echo "gfind is required, install via 'sudo port install findutils'" && exit 1
     fi
     FIND=gfind
-
     # os x stat uses -f %z to get size
     STATSIZE='stat -f %z'
 elif [[ "$OSTYPE" =~ ^cygwin ]]; then
-
     PLATFORM="cygwin"
     FIND=find
     STATSIZE='stat -c %s'
-
+elif [[ "$OSTYPE" =~ ^linux ]]; then
+    PLATFORM="linux"
+    FIND=find
+    STATSIZE='stat -c %s' 
 else
     # TODO: defaults to Linux. We should detect other platforms.
     PLATFORM="linux"
