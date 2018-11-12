@@ -35,10 +35,8 @@ elif [[ "$OSTYPE" =~ ^linux ]]; then
     FIND=find
     STATSIZE='stat -c %s' 
 else
-    # TODO: defaults to Linux. We should detect other platforms.
-    PLATFORM="linux"
-    FIND=find
-    STATSIZE='stat -c %s'
+    # TODO: handle an unknown platform.
+    PLATFORM="unknown"
 fi
 
 usage() {
